@@ -1,12 +1,15 @@
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone"
+import { startStandaloneServer } from "@apollo/server/standalone";
 
-const users=[
-    {id:"1",name:"Ali",age:20,isMarried:true},
-    {id:"2",name:"Ahmed",age:29,isMarried:false},
-    {id:"3",name:"Ikram",age:22,isMarried:true},
-    {id:"4",name:"Aqib",age:23,isMarried:false},
-]
+const users = [
+  { id: "1", name: "Ali", age: 20, isMarried: true },
+  { id: "2", name: "Ahmed", age: 29, isMarried: false },
+  { id: "3", name: "Ikram", age: 22, isMarried: true },
+  { id: "4", name: "Aqib", age: 23, isMarried: false },
+  { id: "5", name: "Ali Ahmed", age: 30, isMarried: true },
+  { id: "6", name: "Ahmed Ali", age: 13, isMarried: false },
+  { id: "7", name: "Aqib Ali", age: 43, isMarried: true },
+];
 
 const typeDefs = `
     type Query {
@@ -28,57 +31,56 @@ const typeDefs = `
     }
 `;
 const resolvers = {
-    Query:{
-        getUsers:()=>{
-            return users;
-        },
-
-        getUserById:(parent,args)=>{
-            const id=args.id;
-            return users.find((user)=>user.id === id);
-        }
+  Query: {
+    getUsers: () => {
+      return users;
     },
 
-    Mutation:{
-        createUser:(parent,args)=>{
-            const {name,age,isMarried}=args;
-            const newUser={
-                id:(users.length + 1).toString(),
-                name,
-                age,
-                isMarried
-            };
-            users.push(newUser);
-            return newUser;
-        },
+    getUserById: (parent, args) => {
+      const id = args.id;
+      return users.find((user) => user.id === id);
+    },
+  },
 
-        updateUser:(parent,args)=>{
-            const {id,name,age,isMarried}=args;
-            const user=users.find((u)=>u.id === id);
-            if (!user) return null;
-            if (name !== undefined) user.name = name;
-            if (age !== undefined) user.age = age;
-            if (isMarried !== undefined) user.isMarried = isMarried;
-            return user;
-        },
+  Mutation: {
+    createUser: (parent, args) => {
+      const { name, age, isMarried } = args;
+      const newUser = {
+        id: (users.length + 1).toString(),
+        name,
+        age,
+        isMarried,
+      };
+      users.push(newUser);
+      return newUser;
+    },
 
-        deleteUser:(parent,args)=>{
-            const index=users.findIndex((u)=>u.id === args.id);
-            if (index === -1) return null;
-            const [deletedUser]=users.splice(index,1);
-            return deletedUser;
-        }
-    }
-}
+    updateUser: (parent, args) => {
+      const { id, name, age, isMarried } = args;
+      const user = users.find((u) => u.id === id);
+      if (!user) return null;
+      if (name !== undefined) user.name = name;
+      if (age !== undefined) user.age = age;
+      if (isMarried !== undefined) user.isMarried = isMarried;
+      return user;
+    },
 
+    deleteUser: (parent, args) => {
+      const index = users.findIndex((u) => u.id === args.id);
+      if (index === -1) return null;
+      const [deletedUser] = users.splice(index, 1);
+      return deletedUser;
+    },
+  },
+};
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers
+  typeDefs,
+  resolvers,
 });
 
 const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
+  listen: { port: 4000 },
 });
 
-console.log(`Server running on port :${url}`)
+console.log(`Server running on port :${url}`);
