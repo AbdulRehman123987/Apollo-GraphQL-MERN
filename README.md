@@ -6,6 +6,7 @@ A hands-on project built to learn and practice GraphQL using Apollo Server and A
 
 ## 📖 Overview
 
+
 This project was created as part of my GraphQL learning journey to understand:
 
 - GraphQL fundamentals
