@@ -154,4 +154,4 @@ Contributions, suggestions, and improvements are welcome.
 
 Made with ❤️ while learning Apollo GraphQL.
 
-Feel free to ⭐ the repository if you found it useful!
+Feel free to ⭐ the repository if you found its useful!
