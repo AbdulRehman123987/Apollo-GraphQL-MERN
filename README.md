@@ -152,6 +152,8 @@ Contributions, suggestions, and improvements are welcome.
 
 ## 👨‍💻 Author
 
+Abdul Rehman
+
 Made with ❤️ while learning Apollo GraphQL.
 
 Feel free to ⭐ the repository if you found its useful!
